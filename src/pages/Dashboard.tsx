@@ -6,7 +6,7 @@ import { motion } from 'motion/react';
 import { Briefcase, Users, FileText, CheckCircle2, ChevronRight, Plus } from 'lucide-react';
 
 export const Dashboard: React.FC = () => {
-  const { user, profile, isTalent, isClient } = useAuth();
+  const { user, profile, isLifecall, isClient } = useAuth();
   const [items, setItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -14,7 +14,7 @@ export const Dashboard: React.FC = () => {
     const fetchData = async () => {
       if (!user) return;
       try {
-        if (isTalent) {
+        if (isLifecall) {
           // Fetch applications
           const q = query(collection(db, 'applications'), where('talentId', '==', user.uid));
           const snap = await getDocs(q);
@@ -32,7 +32,7 @@ export const Dashboard: React.FC = () => {
       }
     };
     fetchData();
-  }, [user, isTalent, isClient]);
+  }, [user, isLifecall, isClient]);
 
   if (!user) return <div>Please login first.</div>;
 
@@ -42,7 +42,7 @@ export const Dashboard: React.FC = () => {
         <header className="mb-8 flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-brand-navy">Welcome back, {profile?.fullName.split(' ')[0]}</h1>
-            <p className="text-brand-slate mt-1">Manage your {isTalent ? 'applications' : 'job postings'} and career.</p>
+            <p className="text-brand-slate mt-1">Manage your {isLifecall ? 'applications' : 'job postings'} and career.</p>
           </div>
           {isClient && (
             <button className="flex items-center gap-2 px-6 py-3 bg-brand-navy text-white font-bold rounded-xl hover:bg-slate-800 transition-all shadow-lg">
@@ -57,9 +57,9 @@ export const Dashboard: React.FC = () => {
             <div className="bg-white border border-slate-100 rounded-3xl p-8 shadow-sm">
               <div className="flex items-center justify-between mb-8">
                 <h2 className="text-xl font-bold text-brand-navy">
-                  Recent {isTalent ? 'Applications' : 'Active Jobs'}
+                  Recent {isLifecall ? 'Applications' : 'Active Jobs'}
                 </h2>
-                <button className="text-teal-600 text-sm font-bold hover:underline">View All</button>
+                <button className="text-gold-600 text-sm font-bold hover:underline">View All</button>
               </div>
 
               {loading ? (
@@ -79,12 +79,12 @@ export const Dashboard: React.FC = () => {
                     <div key={item.id} className="flex items-center justify-between p-4 border border-slate-50 rounded-2xl hover:border-slate-200 transition-all group">
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center">
-                          {isTalent ? <FileText className="text-slate-400" /> : <Briefcase className="text-slate-400" />}
+                          {isLifecall ? <FileText className="text-slate-400" /> : <Briefcase className="text-slate-400" />}
                         </div>
                         <div>
                           <p className="font-bold text-brand-navy">{item.title || 'Application'}</p>
                           <p className="text-xs text-brand-slate uppercase tracking-wider font-bold mt-0.5">
-                            Status: <span className="text-teal-600">{item.status}</span>
+                            Status: <span className="text-gold-600">{item.status}</span>
                           </p>
                         </div>
                       </div>
@@ -101,7 +101,7 @@ export const Dashboard: React.FC = () => {
             <div className="bg-brand-navy text-white rounded-3xl p-8 shadow-xl">
               <h3 className="text-lg font-bold mb-6">AI Career Assist</h3>
               <p className="text-slate-400 text-sm mb-6">Let our AI help you optimize your profile for 200% better visibility.</p>
-              <button className="w-full py-4 bg-teal-500 text-white font-bold rounded-xl hover:bg-teal-400 transition-all">
+              <button className="w-full py-4 bg-gold-500 text-white font-bold rounded-xl hover:bg-gold-400 transition-all">
                 Run Analysis
               </button>
             </div>
@@ -110,7 +110,7 @@ export const Dashboard: React.FC = () => {
               <h3 className="text-lg font-bold text-brand-navy mb-6">Quick Stats</h3>
               <div className="space-y-6">
                 <StatItem label="Profile Views" value="24" color="text-blue-500" />
-                <StatItem label="New Messages" value="3" color="text-teal-500" />
+                <StatItem label="New Messages" value="3" color="text-gold-500" />
                 <StatItem label="Interview Requests" value="1" color="text-purple-500" />
               </div>
             </div>

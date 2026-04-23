@@ -2,7 +2,7 @@ import React from 'react';
 import { Star, MapPin, DollarSign, Briefcase } from 'lucide-react';
 import { motion } from 'motion/react';
 
-interface TalentProps {
+interface LifecallProps {
   fullName: string;
   bio?: string;
   skills?: string[];
@@ -11,7 +11,7 @@ interface TalentProps {
   avatarUrl?: string;
 }
 
-export const TalentCard: React.FC<TalentProps> = ({
+export const LifecallCard: React.FC<LifecallProps> = ({
   fullName,
   bio,
   skills = [],
@@ -22,19 +22,19 @@ export const TalentCard: React.FC<TalentProps> = ({
   return (
     <motion.div
       whileHover={{ scale: 1.02 }}
-      className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:border-teal-500 transition-all duration-300 flex flex-col h-full"
+      className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:border-gold-500 transition-all duration-300 flex flex-col h-full"
     >
       <div className="flex justify-between items-start mb-4">
         <div className="w-12 h-12 bg-slate-100 rounded-xl overflow-hidden flex-shrink-0">
           {avatarUrl ? (
             <img src={avatarUrl} alt={fullName} className="w-full h-full object-cover" />
           ) : (
-            <div className="w-full h-full flex items-center justify-center font-bold text-slate-400 bg-teal-50">
+            <div className="w-full h-full flex items-center justify-center font-bold text-slate-400 bg-gold-50">
               {fullName.charAt(0)}{fullName.split(' ')[1]?.charAt(0) || ''}
             </div>
           )}
         </div>
-        <div className="px-3 py-1 bg-teal-50 text-teal-700 text-[10px] font-bold uppercase rounded-full tracking-wider">
+        <div className="px-3 py-1 bg-gold-50 text-gold-700 text-[10px] font-bold uppercase rounded-full tracking-wider">
           Available
         </div>
       </div>

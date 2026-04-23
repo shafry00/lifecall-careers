@@ -5,7 +5,7 @@ import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { auth, db } from '@/src/lib/firebase';
 import { motion } from 'motion/react';
 import { Mail, Lock, User, Github } from 'lucide-react';
-import { TalentivLogo } from '@/src/components/layout/TalentivLogo';
+import { LifecallLogo } from '@/src/components/layout/LifecallLogo';
 
 export const AuthPage: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -81,8 +81,8 @@ export const AuthPage: React.FC = () => {
       >
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-2 mb-6">
-            <TalentivLogo className="w-8 h-8 text-teal-500" />
-            <span className="text-2xl font-display font-bold text-brand-navy">Talentiv</span>
+            <LifecallLogo className="w-8 h-8 text-gold-500" />
+            <span className="text-2xl font-display font-bold text-brand-navy">Lifecall Careers</span>
           </Link>
           <h1 className="text-2xl font-bold text-brand-navy">
             {isLogin ? 'Welcome back' : 'Create your account'}
@@ -107,7 +107,7 @@ export const AuthPage: React.FC = () => {
                   type="text"
                   placeholder="Full Name"
                   required
-                  className="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 outline-none transition-all"
+                  className="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-gold-500 outline-none transition-all"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                 />
@@ -117,14 +117,14 @@ export const AuthPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setRole('talent')}
-                  className={`py-3 rounded-xl font-bold border-2 transition-all ${role === 'talent' ? 'border-teal-500 bg-teal-50 text-teal-700' : 'border-slate-100 bg-slate-50 text-slate-500'}`}
+                  className={`py-3 rounded-xl font-bold border-2 transition-all ${role === 'talent' ? 'border-gold-500 bg-gold-50 text-gold-700' : 'border-slate-100 bg-slate-50 text-slate-500'}`}
                 >
-                  Talent
+                  Lifecall
                 </button>
                 <button
                   type="button"
                   onClick={() => setRole('client')}
-                  className={`py-3 rounded-xl font-bold border-2 transition-all ${role === 'client' ? 'border-teal-500 bg-teal-50 text-teal-700' : 'border-slate-100 bg-slate-50 text-slate-500'}`}
+                  className={`py-3 rounded-xl font-bold border-2 transition-all ${role === 'client' ? 'border-gold-500 bg-gold-50 text-gold-700' : 'border-slate-100 bg-slate-50 text-slate-500'}`}
                 >
                   Client
                 </button>
@@ -138,7 +138,7 @@ export const AuthPage: React.FC = () => {
               type="email"
               placeholder="Email Address"
               required
-              className="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 outline-none transition-all"
+              className="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-gold-500 outline-none transition-all"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -150,7 +150,7 @@ export const AuthPage: React.FC = () => {
               type="password"
               placeholder="Password"
               required
-              className="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 outline-none transition-all"
+              className="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-gold-500 outline-none transition-all"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -183,7 +183,7 @@ export const AuthPage: React.FC = () => {
           {isLogin ? "Don't have an account?" : "Already have an account?"} {' '}
           <button
             onClick={() => navigate(`/auth?mode=${isLogin ? 'signup' : 'login'}`)}
-            className="text-teal-600 font-bold hover:underline"
+            className="text-gold-600 font-bold hover:underline"
           >
             {isLogin ? 'Sign up for free' : 'Log in here'}
           </button>

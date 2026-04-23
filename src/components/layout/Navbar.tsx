@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { TalentivLogo } from './TalentivLogo';
+import { LifecallLogo } from './LifecallLogo';
 import { useAuth } from '@/src/contexts/AuthContext';
 import { LogOut, User, Menu, X } from 'lucide-react';
 import { auth } from '@/src/lib/firebase';
@@ -15,23 +15,23 @@ export const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-8 h-16 flex items-center justify-between">
         <div className="flex items-center gap-8">
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-teal-500 rounded-lg flex items-center justify-center font-bold text-white">T</div>
-            <span className="text-xl font-bold tracking-tight">Talentiv<span className="text-teal-400 italic">.</span></span>
+            <div className="w-8 h-8 bg-gold-500 rounded-lg flex items-center justify-center font-bold text-white">T</div>
+            <span className="text-xl font-bold tracking-tight">Lifecall Careers<span className="text-gold-400 italic">.</span></span>
           </Link>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-6">
-            <NavLink to="/talents" className={({isActive}) => `text-sm font-medium transition-colors ${isActive ? 'text-white border-teal-500 border-b-2 pb-1' : 'text-slate-300 hover:text-white'}`}>
-              Talents
+            <NavLink to="/talents" className={({isActive}) => `text-sm font-medium transition-colors ${isActive ? 'text-white border-gold-500 border-b-2 pb-1' : 'text-slate-300 hover:text-white'}`}>
+              Lifecalls
             </NavLink>
-            <NavLink to="/jobs" className={({isActive}) => `text-sm font-medium transition-colors ${isActive ? 'text-white border-teal-500 border-b-2 pb-1' : 'text-slate-300 hover:text-white'}`}>
+            <NavLink to="/jobs" className={({isActive}) => `text-sm font-medium transition-colors ${isActive ? 'text-white border-gold-500 border-b-2 pb-1' : 'text-slate-300 hover:text-white'}`}>
               Job Board
             </NavLink>
           </div>
         </div>
 
         <div className="hidden md:flex items-center gap-4">
-          <button className="bg-teal-600 hover:bg-teal-500 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
+          <button className="bg-gold-600 hover:bg-gold-500 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
             Post a Job
           </button>
           
@@ -57,7 +57,7 @@ export const Navbar: React.FC = () => {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden absolute top-20 left-0 right-0 bg-white border-b border-slate-100 p-6 flex flex-col gap-4 animate-in slide-in-from-top-4 duration-200">
-          <Link to="/talents" onClick={() => setIsOpen(false)} className="text-lg font-semibold text-brand-navy">Find Talents</Link>
+          <Link to="/talents" onClick={() => setIsOpen(false)} className="text-lg font-semibold text-brand-navy">Find Lifecalls</Link>
           <Link to="/jobs" onClick={() => setIsOpen(false)} className="text-lg font-semibold text-brand-navy">Job Board</Link>
           <hr className="border-slate-100" />
           {user ? (

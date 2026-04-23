@@ -2,14 +2,14 @@ import { GoogleGenAI, Type } from "@google/genai";
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
-interface TalentProfile {
+interface LifecallProfile {
   id: string;
   fullName: string;
   skills: string[];
   experience: number;
 }
 
-export async function matchTalentWithJob(jobDescription: string, talents: TalentProfile[]) {
+export async function matchLifecallWithJob(jobDescription: string, talents: LifecallProfile[]) {
   try {
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
@@ -17,7 +17,7 @@ export async function matchTalentWithJob(jobDescription: string, talents: Talent
       
       Job Description: ${jobDescription}
       
-      Talents:
+      Lifecalls:
       ${JSON.stringify(talents)}`,
       config: {
         responseMimeType: "application/json",

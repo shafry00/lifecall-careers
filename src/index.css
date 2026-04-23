@@ -5,7 +5,7 @@
   --font-display: "Inter", sans-serif;
 
   --color-brand-navy: #0F172A;
-  --color-brand-teal: #14B8A6;
+  --color-brand-gold: #F4C430;
   --color-brand-slate: #64748B;
   
   --radius-xl: 1rem;
@@ -19,4 +19,3 @@
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
-

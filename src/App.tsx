@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider, useAuth } from '@/src/contexts/AuthContext';
 import { Navbar } from '@/src/components/layout/Navbar';
 import { LandingPage } from '@/src/pages/LandingPage';
-import { TalentDirectory } from '@/src/pages/TalentDirectory';
+import { LifecallDirectory } from '@/src/pages/LifecallDirectory';
 import { AuthPage } from '@/src/pages/Auth';
 import { Dashboard } from '@/src/pages/Dashboard';
 
@@ -17,7 +17,7 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
   
   if (loading) return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="w-12 h-12 border-4 border-teal-500 border-t-transparent rounded-full animate-spin"></div>
+      <div className="w-12 h-12 border-4 border-gold-500 border-t-transparent rounded-full animate-spin"></div>
     </div>
   );
   
@@ -35,7 +35,7 @@ export default function App() {
           <main className="flex-grow">
             <Routes>
               <Route path="/" element={<LandingPage />} />
-              <Route path="/talents" element={<TalentDirectory />} />
+              <Route path="/talents" element={<LifecallDirectory />} />
               <Route path="/auth" element={<AuthPage />} />
               <Route 
                 path="/dashboard" 
@@ -50,11 +50,11 @@ export default function App() {
             </Routes>
           </main>
           <footer className="h-12 flex-none bg-white border-t border-slate-200 px-8 flex items-center justify-between text-[11px] font-bold text-slate-400 uppercase tracking-widest bg-white z-10">
-            <div>&copy; 2026 Talentiv Platform</div>
+            <div>&copy; 2026 Lifecall Careers Platform</div>
             <div className="hidden md:flex gap-6">
-              <span>Total Talents: 5,000+</span>
+              <span>Total Lifecalls: 5,000+</span>
               <span>Active Jobs: 148</span>
-              <span className="text-teal-600">System Status: Optimal</span>
+              <span className="text-gold-600">System Status: Optimal</span>
             </div>
           </footer>
         </div>

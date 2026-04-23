@@ -19,7 +19,7 @@ interface AuthContextType {
   user: User | null;
   profile: Profile | null;
   loading: boolean;
-  isTalent: boolean;
+  isLifecall: boolean;
   isClient: boolean;
 }
 
@@ -27,7 +27,7 @@ const AuthContext = createContext<AuthContextType>({
   user: null,
   profile: null,
   loading: true,
-  isTalent: false,
+  isLifecall: false,
   isClient: false,
 });
 
@@ -60,7 +60,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     user,
     profile,
     loading,
-    isTalent: profile?.role === 'talent',
+    isLifecall: profile?.role === 'talent',
     isClient: profile?.role === 'client',
   };
 
