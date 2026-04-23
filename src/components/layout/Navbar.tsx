@@ -15,14 +15,14 @@ export const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-8 h-16 flex items-center justify-between">
         <div className="flex items-center gap-8">
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gold-500 rounded-lg flex items-center justify-center font-bold text-white">T</div>
+            <div className="w-8 h-8 bg-gold-500 rounded-lg flex items-center justify-center font-bold text-white">L</div>
             <span className="text-xl font-bold tracking-tight">Lifecall Careers<span className="text-gold-400 italic">.</span></span>
           </Link>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-6">
             <NavLink to="/talents" className={({isActive}) => `text-sm font-medium transition-colors ${isActive ? 'text-white border-gold-500 border-b-2 pb-1' : 'text-slate-300 hover:text-white'}`}>
-              Lifecalls
+              Talents
             </NavLink>
             <NavLink to="/jobs" className={({isActive}) => `text-sm font-medium transition-colors ${isActive ? 'text-white border-gold-500 border-b-2 pb-1' : 'text-slate-300 hover:text-white'}`}>
               Job Board

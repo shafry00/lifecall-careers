@@ -45,7 +45,7 @@ export const LandingPage: React.FC = () => {
               transition={{ delay: 0.3 }}
               className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start"
             >
-              <Link to="/talents" className="w-full sm:w-auto px-8 py-4 bg-brand-teal text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-gold-600 transition-all shadow-lg hover:shadow-gold-200">
+              <Link to="/talents" className="w-full sm:w-auto px-8 py-4 bg-gold-500 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-gold-600 transition-all shadow-lg hover:shadow-gold-200">
                 Mulai Belajar Sekarang <ArrowRight className="w-5 h-5" />
               </Link>
               <Link to="/auth" className="w-full sm:w-auto px-8 py-4 bg-white text-brand-navy border border-slate-200 rounded-2xl font-bold hover:bg-slate-50 transition-all">
