@@ -1,0 +1,111 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 0. Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // --- Helpers ---
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isEmailVerified() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // --- Validation Blueprints ---
+
+    function isValidProfile(data) {
+      return data.keys().hasAll(['userId', 'fullName', 'role', 'email'])
+        && data.userId == request.auth.uid
+        && data.fullName is string && data.fullName.size() <= 100
+        && data.role in ['talent', 'client']
+        && data.email is string && data.email.size() <= 256
+        && (!('bio' in data) || (data.bio is string && data.bio.size() <= 1000))
+        && (!('skills' in data) || (data.skills is list && data.skills.size() <= 30))
+        && (!('rate' in data) || (data.rate is number || data.rate == null))
+        && (!('experience' in data) || (data.experience is int || data.experience == null));
+    }
+
+    function isValidJob(data) {
+      return data.keys().hasAll(['clientId', 'title', 'description', 'status', 'createdAt'])
+        && data.clientId == request.auth.uid
+        && data.title is string && data.title.size() <= 200
+        && data.description is string && data.description.size() <= 5000
+        && data.status in ['open', 'closed']
+        && data.createdAt == request.time;
+    }
+
+    function isValidApplication(data) {
+      return data.keys().hasAll(['jobId', 'talentId', 'status', 'createdAt'])
+        && data.talentId == request.auth.uid
+        && data.status == 'pending'
+        && data.createdAt == request.time
+        && (!('coverLetter' in data) || (data.coverLetter is string && data.coverLetter.size() <= 2000));
+    }
+
+    // --- Collection Matches ---
+
+    match /profiles/{userId} {
+      allow get: if true;
+      allow list: if true; // 8. Secure List Queries: Usually directory is public
+      allow create: if isEmailVerified() && isOwner(userId) && isValidProfile(incoming());
+      allow update: if isEmailVerified() && isOwner(userId) && isValidProfile(incoming())
+        && incoming().userId == existing().userId
+        && incoming().role == existing().role; // Immutable role
+      allow delete: if false;
+    }
+
+    match /jobs/{jobId} {
+      allow get: if true;
+      allow list: if true; // Public job board
+      allow create: if isEmailVerified() && isValidJob(incoming()) && isValidId(jobId);
+      allow update: if isEmailVerified() && isOwner(existing().clientId) && isValidJob(incoming())
+        && incoming().clientId == existing().clientId
+        && incoming().createdAt == existing().createdAt;
+      allow delete: if isEmailVerified() && isOwner(existing().clientId);
+    }
+
+    match /applications/{applicationId} {
+      // 1. Relational Sync: Read access for talent and the specific job owner
+      allow get: if isSignedIn() && (isOwner(resource.data.talentId) || isOwner(get(/databases/$(database)/documents/jobs/$(resource.data.jobId)).data.clientId));
+      
+      // List applications for a specific job (Client) or for own applications (Talent)
+      allow list: if isSignedIn() && (
+        resource.data.talentId == request.auth.uid || 
+        get(/databases/$(database)/documents/jobs/$(resource.data.jobId)).data.clientId == request.auth.uid
+      );
+
+      allow create: if isEmailVerified() && isValidApplication(incoming()) && isValidId(applicationId)
+        && exists(/databases/$(database)/documents/jobs/$(incoming().jobId)); // 8. Global Consistency
+
+      allow update: if isEmailVerified() && (
+        // Talent can update coverLetter if pending
+        (isOwner(existing().talentId) && existing().status == 'pending' && incoming().diff(existing()).affectedKeys().hasOnly(['coverLetter'])) ||
+        // Client can update status
+        (isOwner(get(/databases/$(database)/documents/jobs/$(existing().jobId)).data.clientId) && incoming().diff(existing()).affectedKeys().hasOnly(['status']))
+      );
+      
+      allow delete: if isEmailVerified() && isOwner(existing().talentId) && existing().status == 'pending';
+    }
+  }
+}
